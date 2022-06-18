@@ -1,0 +1,81 @@
+.container {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  min-width: 250px;
+  text-align: center;
+  margin-left: 8%;
+}
+
+.subSection {
+  flex: 3;
+  background-color: #5f9ab4;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  color: white;
+  text-decoration: none;
+}
+
+.subSection:hover {
+  background-color: #003951;
+  color: white;
+}
+
+.sideBlock {
+  flex: 4;
+  background-color: black;
+  font-size: 32px;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+/*
+Mobile preview
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .container {
+    margin-top: 10%;
+    color: white;
+    height: min-content;
+    width: 100%;
+  }
+}
+
+/*
+Ipad
+*/
+
+@media screen and (min-width: 480px) and (max-width< 768px) {
+}
+
+/*
+Laptop
+*/
+
+@media screen and (min-width: 768px) and (max-width< 1024px) {
+}
+
+/*
+Desktop
+*/
+
+@media screen and (min-width: 1024px) and (max-width< 1200px) {
+}
+
+/*
+Large Screen
+*/
+
+@media screen and (min-width: 1200px) {
+}

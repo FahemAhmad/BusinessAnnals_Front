@@ -1,0 +1,106 @@
+.custom-btn {
+  font-weight: 200;
+  background-color: black;
+  color: white;
+  padding: 15px 20px;
+  font-size: 14px;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: fit-content;
+}
+
+.block {
+  border: 1px solid black;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 0.5% 1%;
+  width: 96%;
+}
+
+.block-title {
+  font-size: 20px;
+  line-height: 20px;
+  color: #5f9ab4;
+}
+.block-authors {
+  font-size: 14px;
+  line-height: 18px;
+  color: #333;
+}
+
+.block-date {
+  font-size: 14;
+  line-height: 24px;
+  color: #333;
+}
+
+.allLayout {
+  margin: 5% 10%;
+  display: flex;
+}
+
+/*
+Mobile preview
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .custom-btn {
+    width: 100%;
+    padding: 5px 0px;
+  }
+  .block {
+    padding: 5px 10px;
+    margin-top: 2% 0%;
+  }
+
+  .block-title {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-authors {
+    font-size: 14px;
+    line-height: 15px;
+  }
+
+  .block-date {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .allLayout {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*
+  Ipad
+  */
+
+@media screen and (min-width: 480px) and (max-width< 768px) {
+}
+
+/*
+  Laptop
+  */
+
+@media screen and (min-width: 768px) and (max-width< 1024px) {
+}
+
+/*
+  Desktop
+  */
+
+@media screen and (min-width: 1024px) and (max-width< 1200px) {
+}
+
+/*
+  Large Screen
+  */
+
+@media screen and (min-width: 1200px) {
+}

@@ -1,0 +1,21 @@
+.ss {
+  font-family: arial, sans-serif;
+  width: 100%;
+}
+
+th {
+  background-color: #003951;
+  color: white;
+  min-width: 150px;
+}
+
+td,
+th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+
+.inverted:nth-child(even) {
+  background-color: #ffffff;
+}

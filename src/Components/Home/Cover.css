@@ -1,0 +1,98 @@
+.cover {
+  background-image: url("../../Assets/Cover-Photo.png");
+  height: 350px;
+  object-fit: cover;
+  background-position: 50% 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.searchResult {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-left: 8%;
+}
+
+.title {
+  font-size: 2.5vw;
+  color: white;
+  width: 60%;
+}
+
+.searchField {
+  display: flex;
+  margin-top: 1%;
+}
+
+.field {
+  background-color: #c4c4c4;
+  border: none;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 5px;
+  padding-left: 10px;
+  max-width: 500px;
+}
+
+.listItem {
+  min-width: 250px;
+  max-width: 500px;
+  padding: 5px 10px;
+  display: flex;
+  border-bottom: 1px solid grey;
+  width: 100%;
+}
+
+.listItem:hover {
+  background-color: #00000010;
+  cursor: pointer;
+}
+
+/*
+Mobile preview
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .cover {
+    object-fit: contain;
+  }
+  .title {
+    font-size: 5.5vw;
+    width: 65%;
+  }
+  .field {
+    padding: 2px;
+    padding-left: 10px;
+  }
+}
+
+/*
+Ipad
+*/
+
+@media screen and (min-width: 480px) and (max-width< 768px) {
+}
+
+/*
+Laptop
+*/
+
+@media screen and (min-width: 768px) and (max-width< 1024px) {
+}
+
+/*
+Desktop
+*/
+
+@media screen and (min-width: 1024px) and (max-width< 1200px) {
+}
+
+/*
+Large Screen
+*/
+
+@media screen and (min-width: 1200px) {
+}

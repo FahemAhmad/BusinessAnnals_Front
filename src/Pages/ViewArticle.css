@@ -1,0 +1,37 @@
+.articleTitle {
+  color: #4f4f4f;
+  font-weight: bolder;
+  line-height: 30px;
+  font-size: 30px;
+}
+
+.spanBlue {
+  color: #3084e8;
+  text-decoration: underline;
+  font-size: 15px;
+}
+
+.spanGray {
+  color: #898181;
+}
+
+.articleInfo {
+  color: black;
+  font-size: 15px;
+}
+.articleHead {
+  color: black;
+  font-size: 18px;
+}
+
+.authorInfo {
+  color: #454545;
+}
+
+.abstract {
+  color: black;
+  background-color: #5f9ab450;
+  border-radius: 10px;
+  padding: 20px 40px;
+  margin: 0px 50px;
+}

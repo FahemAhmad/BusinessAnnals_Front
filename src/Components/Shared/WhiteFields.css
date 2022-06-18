@@ -1,0 +1,19 @@
+.table-hover tbody tr.white {
+  background-color: #ffffff;
+}
+
+.table {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+}
+tr {
+  line-height: 14px;
+  min-height: 10px;
+  height: 10px;
+}
+
+td {
+  width: 50%;
+  text-align: center;
+  border: none;
+}

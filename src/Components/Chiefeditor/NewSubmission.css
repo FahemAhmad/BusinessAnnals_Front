@@ -1,0 +1,20 @@
+#dropdown-item-button {
+  background-color: white;
+  border-color: black;
+  border-radius: 0;
+  margin-right: 10px;
+  color: black;
+}
+
+.customDropdown {
+  border: 1px solid black;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.dropdown-menu.show.dropDownMenu {
+  background-color: white;
+  color: black;
+}

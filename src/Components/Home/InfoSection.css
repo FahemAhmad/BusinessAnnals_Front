@@ -1,0 +1,51 @@
+.para {
+  font-weight: 200;
+  font-size: 16px;
+  padding: 0% 10%;
+}
+.infoTitle {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+/*
+Mobile preview
+*/
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .infoTitle {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  .para {
+    line-height: 18px;
+  }
+}
+
+/*
+Ipad
+*/
+
+@media screen and (min-width: 480px) and (max-width< 768px) {
+}
+
+/*
+Laptop
+*/
+
+@media screen and (min-width: 768px) and (max-width< 1024px) {
+}
+
+/*
+Desktop
+*/
+
+@media screen and (min-width: 1024px) and (max-width< 1200px) {
+}
+
+/*
+Large Screen
+*/
+
+@media screen and (min-width: 1200px) {
+}
