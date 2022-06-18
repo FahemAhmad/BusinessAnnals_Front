@@ -1,0 +1,22 @@
+{
+  "ignoreUnresolved": [],
+  "ignoreUnused": [
+    "@testing-library/jest-dom",
+    "@testing-library/react",
+    "@testing-library/user-event",
+    "apisauce",
+    "download-file",
+    "firebase",
+    "http-proxy-middleware",
+    "js-file-download",
+    "react-redux",
+    "react-scripts",
+    "react-search-field",
+    "redux-devtools-extension",
+    "redux-logger",
+    "redux-thunk",
+    "styled-components",
+    "thunk"
+  ],
+  "ignoreUnimported": []
+}
