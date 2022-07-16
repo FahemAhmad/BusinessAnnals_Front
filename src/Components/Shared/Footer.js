@@ -1,7 +1,12 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
+  const path = useLocation().pathname;
+
+  if (path.split("/")[1] === "user") return null;
+
   return (
     <div className="stickFooter">
       <div className="footer">

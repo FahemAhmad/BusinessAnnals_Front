@@ -3,9 +3,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
 import "./PrimryNav.css";
 import Logo from "../../Assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function PrimryNav({ user }) {
+  const path = useLocation().pathname;
+
   const [expanded, setExpanded] = useState(false);
   let address = "";
 
@@ -18,6 +20,8 @@ function PrimryNav({ user }) {
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
+
+  if (path.split("/")[1] === "user") return null;
 
   return (
     <>

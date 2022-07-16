@@ -82,7 +82,7 @@ function App() {
           <Route path="/afterSubmission" element={<AfterSubmission />} />
           <Route path="/description" element={<Description />} />
           <Route
-            path="/user/chief/:id"
+            path="/user/chief/:id/*"
             element={<RequireChiefEditor user={state} />}
           />
           <Route

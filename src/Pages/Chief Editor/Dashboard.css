@@ -1,0 +1,10 @@
+.dasboardItem {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 960px) {
+  .dasboardItem {
+    flex-direction: column;
+  }
+}
