@@ -2,7 +2,7 @@ import React from "react";
 import "../Components/Shared/form.css";
 import SubmissionForm from "../Components/Submission/SubmissionForm";
 
-function Submission() {
+function Submission({ id }) {
   return (
     <>
       <div className="layout">
@@ -26,7 +26,7 @@ function Submission() {
                 marginTop: 30,
               }}
             >
-              <SubmissionForm />
+              <SubmissionForm id={id} />
             </div>
           </div>
           <div className="right mainHeading">Journals</div>

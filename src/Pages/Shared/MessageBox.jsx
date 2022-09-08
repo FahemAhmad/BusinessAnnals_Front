@@ -12,6 +12,7 @@ const MessageBox = () => {
         fontWeight: "bold",
         color: "#02627A",
         minWidth: 350,
+        height: "max-content",
       }}
     >
       New Messages{" "}

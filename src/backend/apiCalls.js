@@ -74,7 +74,13 @@ const getBookmarks_User = (id) => httpService.get(`${users}/bookmark/${id}`);
  *
  */
 
-//get all journals
+//all journals
+const getJournals = () => httpService.get(`${chief}/all`);
+
+//get all current journals
+const getCurrentJournals = () => httpService.get(`${chief}/current`);
+
+//get all current journals
 const getAllJournals = (postsPerPage, indexOfLastPost) =>
   httpService.get(
     `${users}/chief/search/assigned?limit=${postsPerPage}&start=${indexOfLastPost}`
@@ -97,7 +103,7 @@ const postNotification = (values) =>
 const assignSupervisor = (id, value) =>
   httpService.put(
     `${chief}/allotSuperVisor/${id}`,
-    { supervisor: value.supervisors, category: value.category },
+    { supervisor: value },
     {
       headers: { "Content-Type": "application/json" },
     }
@@ -116,6 +122,8 @@ const getUserDetailsById = (id) => httpService.get(`${users}/chief/${id}`);
 
 //Issue Launch
 const launchIssue = (values) => httpService.put(`${chief}/issues`, values);
+
+const deleteJournal = (id) => httpService.delete(`${chief}/${id}`);
 
 /**
  *
@@ -407,4 +415,7 @@ export default {
   activateUser,
   forgetUser,
   resetPassword,
+  getJournals,
+  deleteJournal,
+  getCurrentJournals,
 };

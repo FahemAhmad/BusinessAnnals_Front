@@ -6,15 +6,7 @@ function Block({ title, authors, date }) {
   return (
     <div className="block">
       <p className="block-title">{title}</p>
-      <p className="block-authors">
-        {authors.map((singleAuthor, index) => {
-          if (index === 0) {
-            return singleAuthor;
-          } else {
-            return `, ${singleAuthor}`;
-          }
-        })}
-      </p>
+      <p className="block-authors">{authors}</p>
       <div
         style={{
           borderTop: "1px solid #111 ",

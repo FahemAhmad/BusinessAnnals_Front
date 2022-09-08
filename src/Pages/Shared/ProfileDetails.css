@@ -71,8 +71,8 @@
   font-weight: bold;
 }
 .profile main dl dt:after {
-  content: &#34;
-  :&#34 ;
+  /* content: &#34;
+  :&#34 ; */
 }
 .profile main dl dd {
   width: 70%;

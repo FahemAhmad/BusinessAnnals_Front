@@ -8,9 +8,9 @@ const Card = () => {
         height: "100%",
         border: "1px solid #e1e1e1",
         margin: "1rem",
-        padding: "1.5rem",
+        padding: "1rem",
         borderRadius: 20,
-        minWidth: 300,
+        minWidth: 350,
       }}
     >
       <h4 style={{ textAlign: "center", fontWeight: "bolder" }}>Journals</h4>

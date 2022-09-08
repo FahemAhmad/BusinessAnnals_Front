@@ -33,13 +33,13 @@ const validationSchema = yup.object().shape({
     .label("File"),
 });
 
-function SubmissionForm() {
+function SubmissionForm({ id }) {
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{
         title: "",
-        authors: [],
+        authors: "",
         field: "",
         abstract: "",
         file: undefined,
@@ -47,10 +47,13 @@ function SubmissionForm() {
       onSubmit={async (values, { resetForm }) => {
         const dataForm = new FormData();
         dataForm.append("title", values.title);
-        dataForm.append("authors", values.authors);
+        dataForm.append("author", values.authors);
         dataForm.append("category", values.field);
         dataForm.append("abstract", values.abstract);
+        dataForm.append("applied", id);
         dataForm.append("file", values.file);
+        //temporary purposes
+        dataForm.append("supervisor", id);
 
         const config = {
           headers: { "Content-Type": "multipart/form-data" },

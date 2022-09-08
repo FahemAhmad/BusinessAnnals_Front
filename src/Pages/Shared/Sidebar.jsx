@@ -2,10 +2,12 @@ import "./Adminpanel.css";
 import Logo from "../../Assets/logo.png";
 import Logo_Small from "../../Assets/logo_small.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useParams, Link } from "react-router-dom";
 
-const Sidebar = ({ navOptions }) => {
+const Sidebar = ({ navOptions, type }) => {
+  const { id } = useParams();
   const [open, setOpen] = useState(true);
 
   const toggler = () => {
@@ -32,7 +34,11 @@ const Sidebar = ({ navOptions }) => {
           <div className="menu">
             <ul className="menu-links">
               {navOptions?.map((navItem, index) => (
-                <div key={index}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/user/${type}/${id}${navItem.link}`}
+                  key={index}
+                >
                   {navItem?.name && open && (
                     <p className="category">{navItem?.name}</p>
                   )}
@@ -49,7 +55,7 @@ const Sidebar = ({ navOptions }) => {
                       {navItem?.title}
                     </span>
                   </li>
-                </div>
+                </Link>
               ))}
               <li
                 className="nav-link"

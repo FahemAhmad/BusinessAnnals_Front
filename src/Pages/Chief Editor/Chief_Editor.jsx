@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes as Switch } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import DescriptionIcon from "@mui/icons-material/Description";
 import ArticleIcon from "@mui/icons-material/Article";
 import Dashboard from "./Dashboard";
 import Sidebar from "../Shared/Sidebar";
+import AllIssues from "./AllIssues";
+import CurrentIssues from "./CurrentIssues";
 
 const chiefSidebar = [
   {
@@ -21,7 +24,7 @@ const chiefSidebar = [
   {
     title: "Current Issues",
     link: "/current_issues",
-    icon: "",
+    icon: <DescriptionIcon className="icon" />,
   },
   {
     title: "New Submissions",
@@ -64,13 +67,21 @@ const chiefSidebar = [
 ];
 
 const Chief_Editor = () => {
+  useEffect(() => {}, []);
+
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Sidebar navOptions={chiefSidebar} />
-        <Switch>
-          <Route path="/" exact element={<Dashboard />} />
-        </Switch>
+        <Sidebar navOptions={chiefSidebar} type={"chief"} />
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
+          <Switch>
+            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/all_issues" element={<AllIssues />} />
+            <Route path="/current_issues" element={<CurrentIssues />} />
+          </Switch>
+        </div>
       </div>
     </>
   );
