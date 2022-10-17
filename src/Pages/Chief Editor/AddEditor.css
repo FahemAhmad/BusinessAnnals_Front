@@ -1,0 +1,12 @@
+.container {
+  width: 50vw;
+  max-width: 600px;
+  color: black;
+  text-align: left;
+  margin-top: 150px;
+}
+
+.container form {
+  width: 50vw;
+  max-width: 500px;
+}

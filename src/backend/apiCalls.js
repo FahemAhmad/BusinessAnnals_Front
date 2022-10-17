@@ -7,6 +7,9 @@ const notifications = "/notificaition";
 const publisher = "/user/publisher";
 const editor = "/user/editor";
 const issue = "/issues";
+const convo = "/conversation";
+const message = "/messages";
+// const message=
 
 /**
  *
@@ -95,6 +98,9 @@ const newJournalSubmission = (postsPerPage, indexOfLastPost) =>
 //get list of editors
 const getEditors = () => httpService.get(`${chief}/getEditors`);
 
+//get list of users
+const getUsers = () => httpService.get(`${chief}/getUsers`);
+
 //post notifiacation
 const postNotification = (values) =>
   httpService.post(`${chief}/notifications`, values);
@@ -118,12 +124,17 @@ const createReviewer = (values) =>
   httpService.post(`${chief}/reviewer`, values);
 
 //get Chief Data
-const getUserDetailsById = (id) => httpService.get(`${users}/chief/${id}`);
+const getUserDetailsById = (id) => httpService.get(`${chief}/details/${id}`);
 
 //Issue Launch
 const launchIssue = (values) => httpService.put(`${chief}/issues`, values);
 
+// delete Journal
 const deleteJournal = (id) => httpService.delete(`${chief}/${id}`);
+
+//update Editor Information
+const updateInformation_chief = (profile) =>
+  httpService.put(`${chief}/${profile.id}`, profile);
 
 /**
  *
@@ -376,6 +387,27 @@ const getLastIssue = () => httpService.get(`${issue}/last`);
 //get all Issues
 const getIssues = () => httpService.get(`${issue}/all`);
 
+/*
+*
+Conversation
+*/
+
+//get all conversaions
+const getConversations = (id) => httpService.get(`${convo}/${id}`);
+
+/*
+
+
+Messages
+
+
+
+*/
+//get one to one conversation
+const getMessagesUser = (id) => httpService.get(`${message}/${id}`);
+
+const sendMessage = (body) => httpService.post(`${message}`, body);
+
 export default {
   userLogin,
   getUserDetailsById,
@@ -418,4 +450,9 @@ export default {
   getJournals,
   deleteJournal,
   getCurrentJournals,
+  getUsers,
+  updateInformation_chief,
+  getConversations,
+  getMessagesUser,
+  sendMessage,
 };

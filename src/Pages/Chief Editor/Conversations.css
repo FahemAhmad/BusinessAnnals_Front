@@ -1,0 +1,41 @@
+.conversation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  border-bottom: 1px solid gray;
+  width: 90%;
+}
+
+.conversation:hover {
+  background: #d6f2ff;
+}
+
+.conversationImg {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.conversationName {
+  font-weight: 500;
+  text-align: end;
+}
+
+.counter {
+  height: 24px;
+  width: 24px;
+  background-color: red;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  border-radius: 50%;
+  font-size: smaller;
+}

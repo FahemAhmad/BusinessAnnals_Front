@@ -90,7 +90,7 @@ function App() {
             element={<RequireUser user={state} />}
           />
           <Route
-            path="/user/editor/:id"
+            path="/user/editor/:id/*"
             element={<RequireEditor user={state} />}
           />
 

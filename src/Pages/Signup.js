@@ -3,6 +3,7 @@ import "../Components/Shared/form.css";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignupForm from "../Components/Signup/SignupForm";
+import apiCalls from "../backend/apiCalls";
 
 function Signup() {
   return (
@@ -14,7 +15,7 @@ function Signup() {
             <h6 style={{ color: "red" }}>
               Note : Items marked with * are required
             </h6>
-            <SignupForm />
+            <SignupForm api={apiCalls.createNewUser} />
           </div>
           <div className="rightSeen">
             <div className="center mainHeading">Journals</div>

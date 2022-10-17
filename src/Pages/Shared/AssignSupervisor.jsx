@@ -38,6 +38,11 @@ const AssignSupervisor = ({
         setCurrentIssues(() =>
           currentIsues.filter((issue) => {
             if (issue._id === id) {
+              if (issue.status === "new") {
+                issue.supervisor = supervisor;
+                issue.status = "In Process";
+                return;
+              }
               issue.supervisor = supervisor;
               issue.status = "In Process";
             }

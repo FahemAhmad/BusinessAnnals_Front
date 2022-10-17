@@ -1,32 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Route, Routes as Switch, useParams } from "react-router-dom";
 
-// Icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import DescriptionIcon from "@mui/icons-material/Description";
 import ArticleIcon from "@mui/icons-material/Article";
 import PublishIcon from "@mui/icons-material/Publish";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import GroupIcon from "@mui/icons-material/Group";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MessageIcon from "@mui/icons-material/Message";
-
-// Components
-import Dashboard from "./Dashboard";
 import Sidebar from "../Shared/Sidebar";
-import AllIssues from "./AllIssues";
-import CurrentIssues from "./CurrentIssues";
-import New_Submissions from "./New_Submissions";
-import ViewEditors from "./ViewEditors";
-import AddEditor from "./AddEditor";
-import ViewUsers from "./ViewUsers";
-import UpdateChiefEditor from "./UpdateChiefEditor";
-import Messenger from "./Messenger";
+import Messenger from "../Chief Editor/Messenger";
 
 import { io } from "socket.io-client";
 
-const chiefSidebar = [
+const editorSideBar = [
   {
     name: "Analytics & Stats",
     title: "Dashboard",
@@ -35,37 +20,16 @@ const chiefSidebar = [
   },
   {
     name: "Journals",
-    title: "All Issues",
-    link: "/all_issues",
+    title: "Reviewed Journals",
+    link: "/reviewed_journals",
     icon: <ArticleIcon className="icon" />,
   },
   {
-    title: "Current Issues",
-    link: "/current_issues",
-    icon: <DescriptionIcon className="icon" />,
-  },
-  {
-    title: "New Submissions",
-    link: "/new_submissions",
+    title: "New Journals",
+    link: "/new_journals",
     icon: <PublishIcon className="icon" />,
   },
-  {
-    name: "Editor Settings",
-    title: "View Editors",
-    link: "/view_editors",
-    icon: <VisibilityIcon className="icon" />,
-  },
-  {
-    title: "Add Editors",
-    link: "/add_editors",
-    icon: <AddCircleIcon className="icon" />,
-  },
-  {
-    name: "Users Settings",
-    title: "View Users",
-    link: "/view_users",
-    icon: <GroupIcon className="icon" />,
-  },
+
   {
     name: "Personal Details",
     title: "Update User Profile",
@@ -79,7 +43,7 @@ const chiefSidebar = [
   },
 ];
 
-const Chief_Editor = () => {
+const Editor = () => {
   const { id } = useParams();
   const socket = useRef();
   const [arrivedMessage, setArrivedMessage] = useState(null);
@@ -87,12 +51,11 @@ const Chief_Editor = () => {
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
-      console.log("new Message for chief");
+      console.log("new Message for editor");
       setArrivedMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
-        
       });
     });
   }, []);
@@ -107,19 +70,11 @@ const Chief_Editor = () => {
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Sidebar navOptions={chiefSidebar} type={"chief"} />
+        <Sidebar navOptions={editorSideBar} type={"editor"} />
         <div
           style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Switch>
-            <Route path="/" exact element={<Dashboard />} />
-            <Route path="/all_issues" element={<AllIssues />} />
-            <Route path="/current_issues" element={<CurrentIssues />} />
-            <Route path="/new_submissions" element={<New_Submissions />} />
-            <Route path="/view_editors" element={<ViewEditors />} />
-            <Route path="/add_editors" element={<AddEditor />} />
-            <Route path="/view_users" element={<ViewUsers />} />
-            <Route path="/update_profile" element={<UpdateChiefEditor />} />
             <Route
               path="/messages"
               element={
@@ -133,4 +88,4 @@ const Chief_Editor = () => {
   );
 };
 
-export default Chief_Editor;
+export default Editor;

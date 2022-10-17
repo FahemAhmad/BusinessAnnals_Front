@@ -3,8 +3,6 @@ import * as yup from "yup";
 import { Formik, Form } from "formik";
 import TextField from "../Shared/TextField";
 import { Button } from "react-bootstrap";
-
-import api from "../../backend/apiCalls";
 import ToastSuccess from "../Shared/ToastSuccess";
 
 const validationSchema = yup.object().shape({
@@ -22,7 +20,7 @@ const validationSchema = yup.object().shape({
   job: yup.string().required().label("Job"),
 });
 
-function SignupForm() {
+function SignupForm({ api }) {
   return (
     <Formik
       validationSchema={validationSchema}
@@ -36,18 +34,13 @@ function SignupForm() {
         country: "",
         job: "",
       }}
-      onSubmit={async (values) => {
-        const res = await api.createNewUser(values);
-
-        if (res.data.error === false) {
-          const response = res.data.message;
-
-          ToastSuccess.ToastSuccess(response);
-        } else {
-          console.log(res.data.message);
-
-          ToastSuccess.ToastFailure(res.data.message);
-        }
+      onSubmit={async (values, { resetForm }) => {
+        const res = await api(values)
+          .then((data) => {
+            ToastSuccess.ToastSuccess(data?.data);
+            resetForm();
+          })
+          .catch((err) => ToastSuccess.ToastFailure(err.response.data));
       }}
     >
       {(formik) => (

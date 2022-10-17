@@ -14,8 +14,9 @@
   top: 0;
   left: 0;
   bottom: 0;
-  min-height: 100vh;
-  width: 250px;
+  height: 100vh;
+  overflow-y: scroll;
+  width: 270px;
   padding: 10px 14px;
   background-color: #02627a;
   transition: 0.2s linear;
@@ -33,7 +34,7 @@
 .sidebar header .toggle {
   position: absolute;
   top: 50%;
-  right: -25px;
+  right: -12px;
   transform: translateY(-50%);
   background-color: #02627a;
   display: flex;
@@ -65,6 +66,7 @@
   color: black;
   background-color: #d6f2ff;
   border-radius: 5px;
+  padding: 0px 0px 0px 10px;
 }
 
 .sidebar li .icon,

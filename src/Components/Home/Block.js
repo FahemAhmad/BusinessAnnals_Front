@@ -3,6 +3,8 @@ import { dateFormat } from "../../Utility/dateFormat";
 import "../Shared/shared.css";
 
 function Block({ title, authors, date }) {
+  if (!title || !authors || !date) return;
+
   return (
     <div className="block">
       <p className="block-title">{title}</p>
