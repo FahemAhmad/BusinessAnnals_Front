@@ -1,12 +1,37 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../Shared/Title";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ProfileDetails from "../Shared/ProfileDetails";
 import Card from "../Shared/Card";
 import "./Dashboard.css";
-import MessageBox from "../Shared/MessageBox";
+import apiCalls from "../../backend/apiCalls";
 
-const Dashboard = () => {
+const Dashboard = ({ endpointCall }) => {
+  const [totalUser, setTotalUsers] = useState(0);
+  const [editorCount, setEditorCount] = useState(0);
+  const [journalCount, setJournalCount] = useState(0);
+
+  const getTotalUsers = async () => {
+    await apiCalls
+      .getTotalUsers()
+      .then((res) => setTotalUsers(res?.data?.count));
+  };
+
+  const getEditorCount = async () => {
+    await apiCalls
+      .getEditorCount()
+      .then((res) => setEditorCount(res.data.count));
+  };
+  const getJournalCount = async () => {
+    await apiCalls
+      .getJournlCount()
+      .then((res) => setJournalCount(res.data.count));
+  };
+  useEffect(() => {
+    getTotalUsers();
+    getEditorCount();
+    getJournalCount();
+  }, []);
   return (
     <>
       <Title
@@ -14,7 +39,7 @@ const Dashboard = () => {
         icon={<DashboardIcon fontSize="large" style={{ marginBottom: 7 }} />}
       />
       <div className="dasboardItem">
-        <ProfileDetails />
+        <ProfileDetails endpointCall={endpointCall} />
         <div
           style={{
             display: "flex",
@@ -22,11 +47,22 @@ const Dashboard = () => {
             height: "fit-content",
           }}
         >
-          <Card />
-          <Card />
-          <Card />
+          <Card
+            title={"Total User"}
+            count={totalUser ? totalUser : 0}
+            subtitle={"Total Number of Registered Users"}
+          />
+          <Card
+            title={"Total Editors"}
+            count={editorCount ? editorCount : 0}
+            subtitle={"Total Number of Registered Editors "}
+          />
+          <Card
+            title={"Total Journals"}
+            count={journalCount ? journalCount : 0}
+            subtitle={"Total Number of  Journals "}
+          />
         </div>
-        <MessageBox />
       </div>
     </>
   );

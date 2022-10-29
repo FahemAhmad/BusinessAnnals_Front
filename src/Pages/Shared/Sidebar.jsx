@@ -5,6 +5,8 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useParams, Link } from "react-router-dom";
+import Logout from "../Logout";
+import { removeCookie, removeLocalStorage } from "../../Auth/auth";
 
 const Sidebar = ({ navOptions, type }) => {
   const { id } = useParams();
@@ -12,6 +14,14 @@ const Sidebar = ({ navOptions, type }) => {
 
   const toggler = () => {
     setOpen(!open);
+  };
+  const logout = () => {
+    removeCookie("token");
+    removeLocalStorage("token");
+
+    removeLocalStorage("user");
+
+    window.location = "/";
   };
 
   return (
@@ -64,6 +74,7 @@ const Sidebar = ({ navOptions, type }) => {
                     ? { padding: 0, backgroundColor: "black", color: "white" }
                     : { backgroundColor: "black", color: "white" }
                 }
+                onClick={() => logout()}
               >
                 <LogoutIcon className="icon" />
                 <span

@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import ToastSuccess from "../../Components/Shared/ToastSuccess";
+
 import "./ProfileDetails.css";
 
-const ProfileDetails = () => {
+const ProfileDetails = ({ endpointCall }) => {
+  const { id } = useParams();
+  const [details, setDetails] = useState();
+
+  const getProfileDetails = async () => {
+    await endpointCall(id)
+      .then((res) => {
+        setDetails(res.data);
+      })
+      .catch((err) =>
+        ToastSuccess.ToastFailure("Couldnt Load User Profile Information")
+      );
+  };
+
+  useEffect(() => {
+    if (endpointCall) {
+      getProfileDetails();
+    }
+  }, [endpointCall]);
   return (
     <div className="profile">
       <figure>
@@ -12,8 +34,8 @@ const ProfileDetails = () => {
       </figure>
       <header>
         <h1>
-          Maria Gonzalez
-          <small>Client Happiness Manager</small>
+          {details?.firstName} {details?.lastName}
+          <small>{details?.userType.toUpperCase()}</small>
         </h1>
       </header>
 
@@ -26,26 +48,20 @@ const ProfileDetails = () => {
       <main>
         <dl>
           <dt>Full name</dt>
-          <dd>Maria Josephina Gonzalez</dd>
-          <dt>Date of birth</dt>
-          <dd>August 27, 1987</dd>
-          <dt>Hometown</dt>
-          <dd>Barcelona, Spain</dd>
-          <dt>Occupation</dt>
-          <dd>Client Happiness Manager</dd>
-          <dt>Loves</dt>
-          <dd>Skydiving, Tennis, Romantic dinners</dd>
-          <dt>Hates</dt>
-          <dd>Taxes, bosses instead of leaders</dd>
-          <dt>Social</dt>
           <dd>
-            <a href="#">
-              <i className="fa fa-twitter-square" aria-hidden="true"></i>
-            </a>
-            <a href="#">
-              <i className="fa fa-facebook-official" aria-hidden="true"></i>
-            </a>
+            {" "}
+            {details?.firstName} {details?.lastName}
           </dd>
+          <dt>Email</dt>
+          <dd>{details?.email}</dd>
+          <dt>Occupation</dt>
+          <dd>{details?.job}</dd>
+          <dt>Country</dt>
+          <dd>{details?.country}</dd>
+          <dt>Institute</dt>
+          <dd>{details?.institute}</dd>
+          <dt>Account Status</dt>
+          <dd>{details?.accountSatus ? "Active" : "Disable"}</dd>
         </dl>
       </main>
     </div>

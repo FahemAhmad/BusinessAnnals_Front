@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Route, Routes as Switch, useParams } from "react-router-dom";
+import { Navigate, Route, Routes as Switch, useParams } from "react-router-dom";
 
 // Icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -25,6 +25,8 @@ import UpdateChiefEditor from "./UpdateChiefEditor";
 import Messenger from "./Messenger";
 
 import { io } from "socket.io-client";
+import NotFound from "../NotFound";
+import apiCalls from "../../backend/apiCalls";
 
 const chiefSidebar = [
   {
@@ -83,16 +85,15 @@ const Chief_Editor = () => {
   const { id } = useParams();
   const socket = useRef();
   const [arrivedMessage, setArrivedMessage] = useState(null);
+  const [messageCounter, setMessageCounter] = useState([]);
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
-      console.log("new Message for chief");
       setArrivedMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
-        
       });
     });
   }, []);
@@ -112,7 +113,11 @@ const Chief_Editor = () => {
           style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Switch>
-            <Route path="/" exact element={<Dashboard />} />
+            <Route
+              path="/"
+              exact
+              element={<Dashboard endpointCall={apiCalls.getUserDetailsById} />}
+            />
             <Route path="/all_issues" element={<AllIssues />} />
             <Route path="/current_issues" element={<CurrentIssues />} />
             <Route path="/new_submissions" element={<New_Submissions />} />
@@ -120,12 +125,19 @@ const Chief_Editor = () => {
             <Route path="/add_editors" element={<AddEditor />} />
             <Route path="/view_users" element={<ViewUsers />} />
             <Route path="/update_profile" element={<UpdateChiefEditor />} />
+            <Route path="/not-found" element={<NotFound />} />
             <Route
               path="/messages"
               element={
-                <Messenger socket={socket} arrivedMessage={arrivedMessage} />
+                <Messenger
+                  socket={socket}
+                  arrivedMessage={arrivedMessage}
+                  setMessageCounter={setMessageCounter}
+                  messageCounter={messageCounter}
+                />
               }
             />
+            <Route path="*" element={<Navigate to="/not-found" />} />
           </Switch>
         </div>
       </div>

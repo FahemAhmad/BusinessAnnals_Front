@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { removeCookie, removeLocalStorage } from "../Auth/auth";
 
 function Logout() {
+  console.log("Login Called");
   useEffect(() => {
     removeCookie("token");
     removeLocalStorage("user");

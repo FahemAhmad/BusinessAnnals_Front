@@ -57,8 +57,8 @@ function FIlterDropDown({ title, data, setFunc, trigger }) {
     setFunc(() => {
       const id = data.filter((d) => d.firstName === e);
       return id[0].id !== undefined
-        ? { id: id[0].id, firstName: id[0].firstName }
-        : id[0].firstName;
+        ? { id: id[0].id, firstName: id[0].firstName, lastName: id[0].lastName }
+        : `${id[0].firstName} ${id[0].lastName}`;
     });
     setValue(e);
   };
@@ -82,13 +82,13 @@ function FIlterDropDown({ title, data, setFunc, trigger }) {
 
           <Dropdown.Menu as={CustomMenu} className="dropDownMenu">
             {data &&
-              data.map((singleItem, index) => (
+              data?.map((singleItem, index) => (
                 <Dropdown.Item
                   eventKey={singleItem.firstName}
                   style={{ color: "black" }}
                   key={index}
                 >
-                  {singleItem.firstName}
+                  {singleItem.firstName} {singleItem?.lastName}
                 </Dropdown.Item>
               ))}
           </Dropdown.Menu>

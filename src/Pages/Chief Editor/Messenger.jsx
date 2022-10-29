@@ -7,27 +7,62 @@ import Message from "./Message";
 import { useEffect, useRef } from "react";
 import apiCalls from "../../backend/apiCalls";
 import { useParams } from "react-router-dom";
+import { Add } from "@mui/icons-material";
+import FindFriends from "../../Components/Shared/FindFriends";
 
-const Messenger = ({ socket, arrivedMessage }) => {
+const Messenger = ({
+  socket,
+  arrivedMessage,
+  messageCounter,
+  setMessageCounter,
+}) => {
   const { id } = useParams();
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [newConvo, setNewConvo] = useState(false);
+  const [updateConvo, setUpdateConvo] = useState(false);
+
   let setMess = true;
 
   const scrollToRef = useRef();
 
-  //update on arrived messages
+  //update on arrived messages or the chat changes
   useEffect(() => {
     arrivedMessage &&
       currentChat?.members.includes(arrivedMessage.sender) &&
       setMessages((prev) => [...prev, arrivedMessage]);
   }, [arrivedMessage, currentChat]);
 
+  //update counter on arrived message
+  useEffect(() => {
+    if (!currentChat?.members.includes(arrivedMessage.sender)) {
+      //on message arrive change the conversation counter
+
+      let ifNewConversation = false;
+      setConversations(() =>
+        conversations.filter((con) => {
+          if (con.members.includes(arrivedMessage?.sender)) {
+            ifNewConversation = true;
+            if (con.readMessageId === arrivedMessage.sender)
+              con.counter = con.counter + 1;
+            else con.counter = 1;
+            con.readMessageId = arrivedMessage?.sender;
+          }
+
+          return con;
+        })
+      );
+
+      if (!ifNewConversation) {
+        getConversation();
+      }
+    }
+  }, [arrivedMessage]);
+
   //on submit get messages
   const handleSubmit = async (e) => {
-    console.log("newMessage", newMessage);
     if (newMessage === "") {
       setNewMessage("");
       setMess = false;
@@ -41,7 +76,6 @@ const Messenger = ({ socket, arrivedMessage }) => {
       conversationId: currentChat.id,
     };
 
-    console.log("current Chat Messenger", currentChat);
     const recieverId = currentChat.members.find((member) => member !== id);
 
     socket?.current.emit("sendMessage", {
@@ -52,6 +86,7 @@ const Messenger = ({ socket, arrivedMessage }) => {
     try {
       const res = await apiCalls.sendMessage(message);
 
+      currentChat.readMessageId = id;
       setMessages([...messages, res.data]);
       setNewMessage("");
     } catch (err) {
@@ -64,32 +99,48 @@ const Messenger = ({ socket, arrivedMessage }) => {
     await apiCalls
       .getConversations(id)
       .then((data) => {
+        console.log("thisis data", data);
         setConversations(data.data);
+
+        // for every conversation there is a counter
       })
       .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     getConversation();
-  }, [id]);
+  }, [id, updateConvo]);
 
   //get all messages of the
   useEffect(() => {
     const getMessages = async () => {
       try {
         const res = await apiCalls.getMessagesUser(currentChat.id);
-        console.log("returned conversations", res);
+
         setMessages(res.data);
       } catch (err) {
         console.log(err);
       }
     };
-    getMessages();
+    if (currentChat) getMessages();
   }, [currentChat]);
 
   useEffect(() => {
     scrollToRef?.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const changeCurrentChat = async (c) => {
+    if (c.readMessageId !== id) {
+      c.counter = 0;
+
+      await apiCalls
+        .updateConvoCounterEndpoint(c._id)
+        .then((res) => console.log("update switch"))
+        .catch((err) => console.log("error", err));
+    }
+
+    setCurrentChat(c);
+  };
 
   return (
     <>
@@ -98,9 +149,22 @@ const Messenger = ({ socket, arrivedMessage }) => {
         <div className="messenger">
           <div className="chatMenu">
             <div className="chatMenuWrapper">
-              <input placeholder="Search User" className="chatMenuInput" />
+              <button
+                style={{
+                  color: "white",
+                  width: "90%",
+                  margin: "0 auto",
+                  padding: "3px 8px",
+                  backgroundColor: "#02627A",
+                  border: "none",
+                }}
+                onClick={() => setNewConvo(true)}
+              >
+                <Add />
+                New Conversation
+              </button>
               {conversations?.map((c, index) => (
-                <div onClick={() => setCurrentChat(c)} key={index}>
+                <div onClick={() => changeCurrentChat(c)} key={index}>
                   <Conversations conversation={c} currentUser={id} />
                 </div>
               ))}
@@ -149,6 +213,16 @@ const Messenger = ({ socket, arrivedMessage }) => {
           </div>
         </div>
       </div>
+      <FindFriends
+        show={newConvo}
+        onHide={() => setNewConvo(false)}
+        backendCall={apiCalls.getChiefFriends}
+        createConvoCall={apiCalls.newConversationEndpoint}
+        id={id}
+        updateConvo={() => setUpdateConvo(!updateConvo)}
+        conversations={conversations}
+        socket={socket}
+      />
     </>
   );
 };

@@ -63,14 +63,14 @@ const ViewEditors = () => {
       headerName: "Actions",
       width: 250,
       renderCell: (params) => (
-        <>
+        <div style={{ cursor: "pointer" }}>
           <DeleteIcon
             style={{ margin: "0 1rem", color: "red" }}
             onClick={() => handleDeleteEvent(params?.row)}
           />
           <DetailsIcon style={{ margin: "0 1rem", color: "midnightblue" }} />
           <LockResetIcon style={{ margin: "0 1rem", color: "orange" }} />
-        </>
+        </div>
       ),
     },
   ];
@@ -80,14 +80,14 @@ const ViewEditors = () => {
   };
 
   const handleDeleteEvent = async (row) => {
-    // seteditors(() => editors.filter((editor) => editor?.id !== row?.id));
-    // await apiCalls
-    //   .deleteJournal(row?.id)
-    //   .then((res) => ToastSuccess.ToastSuccess(res?.data))
-    //   .catch((err) => {
-    //     seteditors([...editors, row]);
-    //     ToastSuccess.ToastFailure(err.response.data);
-    //   });
+    seteditors(() => editors.filter((editor) => editor?.id !== row?.id));
+    await apiCalls
+      .deleteJournal(row?.id)
+      .then((res) => ToastSuccess.ToastSuccess(res?.data))
+      .catch((err) => {
+        seteditors([...editors, row]);
+        ToastSuccess.ToastFailure(err.response.data);
+      });
   };
 
   //get list of editors

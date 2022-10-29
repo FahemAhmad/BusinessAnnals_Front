@@ -1,7 +1,7 @@
 import React from "react";
 import ArrowCircleUpRoundedIcon from "@mui/icons-material/ArrowCircleUpRounded";
 
-const Card = () => {
+const Card = ({ title, count, subtitle }) => {
   return (
     <div
       style={{
@@ -13,17 +13,15 @@ const Card = () => {
         minWidth: 350,
       }}
     >
-      <h4 style={{ textAlign: "center", fontWeight: "bolder" }}>Journals</h4>
+      <h4 style={{ textAlign: "center", fontWeight: "bolder" }}>{title}</h4>
       <h3 style={{ color: "#02627A", fontWeight: "bold", textAlign: "center" }}>
         <ArrowCircleUpRoundedIcon
           style={{ marginBottom: 5 }}
           fontSize={"medium"}
         />
-        905
+        {count}
       </h3>
-      <p style={{ color: "#a3a3a3" }}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-      </p>
+      <p style={{ color: "#a3a3a3", textAlign: "center" }}>{subtitle}</p>
     </div>
   );
 };

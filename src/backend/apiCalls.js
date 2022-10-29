@@ -136,6 +136,18 @@ const deleteJournal = (id) => httpService.delete(`${chief}/${id}`);
 const updateInformation_chief = (profile) =>
   httpService.put(`${chief}/${profile.id}`, profile);
 
+//get Chief Editor friends
+const getChiefFriends = () => httpService.get(`${chief}/allUsers`);
+
+//get User Count
+const getTotalUsers = () => httpService.get(`${chief}/count/user`);
+
+//get editor count
+const getEditorCount = () => httpService.get(`${chief}/count/edit`);
+
+//get journal count
+
+const getJournlCount = () => httpService.get(`${chief}/count/journal`);
 /**
  *
  *
@@ -172,10 +184,8 @@ const updateInformtion_editor = (id, values) =>
   httpService.put(`${editor}/updateInfo/${id}`, values);
 
 //get reviwed Content
-const getReviwedContent_editor = (id, postsPerPage, indexOfLastPost) =>
-  httpService.get(
-    `${editor}/reviewedJournals/${id}?limit=${postsPerPage}&start=${indexOfLastPost}`
-  );
+const getReviwedContent_editor = (id) =>
+  httpService.get(`${editor}/reviewedJournals/${id}`);
 
 //get assigned Content
 const getAsssignedContent_editor = (id, postsPerPage, indexOfLastPost) =>
@@ -395,6 +405,11 @@ Conversation
 //get all conversaions
 const getConversations = (id) => httpService.get(`${convo}/${id}`);
 
+//create a new convo
+const newConversationEndpoint = (requestBody) =>
+  httpService.post(`${convo}/convoText`, requestBody);
+
+const updateConvoCounterEndpoint = (id) => httpService.put(`${convo}/${id}`);
 /*
 
 
@@ -455,4 +470,10 @@ export default {
   getConversations,
   getMessagesUser,
   sendMessage,
+  getChiefFriends,
+  getTotalUsers,
+  getEditorCount,
+  getJournlCount,
+  newConversationEndpoint,
+  updateConvoCounterEndpoint,
 };

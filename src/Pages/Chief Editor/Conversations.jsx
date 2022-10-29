@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import apiCalls from "../../backend/apiCalls";
 import "./Conversations.css";
 
-const Conversations = ({ conversation, currentUser, counter = 0 }) => {
+const Conversations = ({ conversation, currentUser }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentUser);
 
     const getUser = async () => {
-      console.log(friendId);
       try {
         const res = await apiCalls.getUserDetailsById(friendId);
         setUser(res.data);
@@ -34,7 +33,10 @@ const Conversations = ({ conversation, currentUser, counter = 0 }) => {
             {user?.firstName} {user?.lastName}
           </span>
         </div>
-        {counter !== 0 && <div className="counter">{counter}</div>}
+        {conversation.counter > 0 &&
+          conversation.readMessageId !== currentUser && (
+            <div className="counter">{conversation.counter}</div>
+          )}
       </div>
     </>
   );

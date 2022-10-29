@@ -10,6 +10,9 @@ import Sidebar from "../Shared/Sidebar";
 import Messenger from "../Chief Editor/Messenger";
 
 import { io } from "socket.io-client";
+import EditorDashboard from "./EditorDashboard";
+import ReviewedJournals from "./ReviewedJournals";
+import apiCalls from "../../backend/apiCalls";
 
 const editorSideBar = [
   {
@@ -51,7 +54,7 @@ const Editor = () => {
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
-      console.log("new Message for editor");
+      console.log("data", data);
       setArrivedMessage({
         sender: data.senderId,
         text: data.text,
@@ -62,9 +65,7 @@ const Editor = () => {
 
   useEffect(() => {
     socket?.current.emit("addUser", id);
-    socket?.current.on("getUsers", (users) => {
-      console.log(users);
-    });
+    socket?.current.on("getUsers", (users) => {});
   }, [id]);
 
   return (
@@ -75,6 +76,15 @@ const Editor = () => {
           style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
           <Switch>
+            <Route
+              path="/"
+              exact
+              element={
+                <EditorDashboard endpointCall={apiCalls.getDetails_editor} />
+              }
+            />
+            <Route path="/reviewed_journals" element={<ReviewedJournals />} />
+            <Route path="/new_journals" element={<ReviewedJournals />} />
             <Route
               path="/messages"
               element={
