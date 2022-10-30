@@ -6,6 +6,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import ToastSuccess from "../../Components/Shared/ToastSuccess";
 import DescriptionIcon from "@mui/icons-material/Description";
 import AssignSupervisor from "../Shared/AssignSupervisor";
+import LaunchIssue from "./LaunchIssue";
 
 const returnBagdeColor = (status) => {
   if (status === "Approved") return ["#90EE90", "green"];
@@ -16,6 +17,7 @@ const returnBagdeColor = (status) => {
 const CurrentIssues = () => {
   const [open, setOpen] = useState(false);
   const [currentId, setCurrentId] = useState();
+  const [launchIssue, setLaunchIssue] = useState(false);
 
   const handleChange = () => setOpen(!open);
 
@@ -54,7 +56,7 @@ const CurrentIssues = () => {
       width: 200,
       renderCell: (params) => (
         <>
-          {params?.row?.applied.firstName} {params?.row?.applied.lastName}
+          {params?.row?.applied?.firstName} {params?.row?.applied?.lastName}
         </>
       ),
     },
@@ -134,6 +136,21 @@ const CurrentIssues = () => {
 
   return (
     <>
+      <button
+        style={{
+          position: "absolute",
+          width: "200px",
+          padding: 10,
+          textAlign: "center",
+          backgroundColor: "black",
+          color: "white",
+          right: 60,
+          top: 90,
+        }}
+        onClick={() => setLaunchIssue(!launchIssue)}
+      >
+        Launch the issue
+      </button>
       {currentIsues && (
         <JournalsTable
           title={"Current Issues"}
@@ -150,6 +167,10 @@ const CurrentIssues = () => {
         id={currentId}
         currentIsues={currentIsues}
         setCurrentIssues={setCurrentIssues}
+      />
+      <LaunchIssue
+        open={launchIssue}
+        handleChange={() => setLaunchIssue(!launchIssue)}
       />
     </>
   );

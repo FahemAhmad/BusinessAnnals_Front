@@ -1,9 +1,10 @@
-.container {
+.add-container {
   width: 50vw;
   max-width: 600px;
   color: black;
   text-align: left;
   margin-top: 150px;
+  margin: 0 auto;
 }
 
 .container form {

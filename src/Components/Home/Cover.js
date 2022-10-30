@@ -44,7 +44,7 @@ function Cover({ setTrigger, trigger }) {
   const searchCall = async (searchTerm, cancelToken) => {
     //Check if there are any previous pending requests
     if (typeof cancelToken != typeof undefined) {
-      cancelToken.cancel("Operation canceled due to new request.");
+      await cancelToken.cancel("Operation canceled due to new request.");
     }
 
     //Save the cancel token for the current request

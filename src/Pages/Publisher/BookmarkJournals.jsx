@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DownloadIcon from "@mui/icons-material/Download";
 import apiCalls from "../../backend/apiCalls";
-import JournalsTable from "../Shared/JournalsTable";
+
+import DownloadIcon from "@mui/icons-material/Download";
+
 import Article from "@mui/icons-material/Article";
 import { useParams } from "react-router-dom";
+import JournalsTable from "../Shared/JournalsTable";
 
 const returnBagdeColor = (status) => {
   if (status === "Approved") return ["#90EE90", "green"];
@@ -11,7 +13,7 @@ const returnBagdeColor = (status) => {
   else return ["#FFF9A6", "brown"];
 };
 
-const ReviewedJournals = () => {
+const BookmarkJournals = () => {
   const { id } = useParams();
   //columns
 
@@ -26,6 +28,7 @@ const ReviewedJournals = () => {
       headerName: "Category",
       width: 150,
     },
+
     {
       field: "supervisor",
       headerName: "Supervisor",
@@ -36,7 +39,6 @@ const ReviewedJournals = () => {
         </>
       ),
     },
-
     {
       field: "applied",
       headerName: "Submited by",
@@ -83,7 +85,7 @@ const ReviewedJournals = () => {
 
   const getAllIssues = async () => {
     await apiCalls
-      .getReviwedContent_editor(id)
+      .getBookmarks_publisher(id)
       .then((data) => setAllIssues(data?.data));
   };
 
@@ -96,7 +98,7 @@ const ReviewedJournals = () => {
     <>
       {allIssues && (
         <JournalsTable
-          title={"Reviewed Journals"}
+          title={"Bookmarked Journals"}
           rows={allIssues}
           columns={columns}
           icon={<Article fontSize="large" style={{ marginBottom: 7 }} />}
@@ -106,4 +108,4 @@ const ReviewedJournals = () => {
   );
 };
 
-export default ReviewedJournals;
+export default BookmarkJournals;

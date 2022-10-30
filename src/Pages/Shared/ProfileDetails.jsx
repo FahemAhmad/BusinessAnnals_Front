@@ -5,8 +5,9 @@ import ToastSuccess from "../../Components/Shared/ToastSuccess";
 
 import "./ProfileDetails.css";
 
-const ProfileDetails = ({ endpointCall }) => {
-  const { id } = useParams();
+const ProfileDetails = ({ endpointCall, userId = null }) => {
+  let { id } = useParams();
+  if (userId) id = userId;
   const [details, setDetails] = useState();
 
   const getProfileDetails = async () => {

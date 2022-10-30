@@ -14,11 +14,13 @@ function ViewArticle({ user }) {
 
   const seeBookmarks = async () => {
     const res = await apiCalls.getBookmarks_User(user.user.userId);
-    console.log(res);
 
     if (res.status === 200) {
       if (res.data.length > 0) {
-        const response = res.data.filter((item) => item === post.id);
+        console.log("post", post);
+        console.log("data", res.data);
+        const response = res.data.filter((item) => item.id === post?.id);
+        console.log("response", response);
         if (response.length !== 0) {
           setBooked(true);
         }
@@ -77,7 +79,7 @@ function ViewArticle({ user }) {
             }}
           >
             <p
-              onClick={async () => await apiCalls.downloadJournal(post.file)}
+              onClick={async () => await apiCalls.downloadJournal(post?.file)}
               style={{
                 color: "blue",
                 fontSize: 20,
@@ -91,7 +93,7 @@ function ViewArticle({ user }) {
               <p
                 style={{ cursor: "pointer" }}
                 onClick={() =>
-                  booked ? removeBookmark(post.id) : addBookmark(post.id)
+                  booked ? removeBookmark(post?.id) : addBookmark(post?.id)
                 }
               >
                 {booked ? (
@@ -108,28 +110,24 @@ function ViewArticle({ user }) {
               </p>
             )}
           </div>
-          <p className="articleTitle">{post.title}</p>
-          <span className="spanBlue">
-            {post.author.map((singleAuthor, i) =>
-              i !== 0 ? `, ${singleAuthor}` : singleAuthor
-            )}
-          </span>
+          <p className="articleTitle">{post?.title}</p>
+          <span className="spanBlue">{post?.author}</span>
           <span className="spanGray">
-            First Published : {post.publicationYear} | {post.category} Article
+            First Published : {post?.publicationYear} | {post?.category} Article
           </span>
           <span className="spanBlue">
             Issue Information{" "}
             <i className="fas fa-angle-down" style={{ paddingTop: 10 }}></i>
           </span>
           <p className="articleInfo">
-            Volume: {post.issueYear.issueDetails.Volume} issue:{" "}
-            {post.issueYear.issueNo}
+            Volume: {post?.issueYear?.issueDetails.Volume} issue:{" "}
+            {post?.issueYear?.issueNo}
             <br />
-            Issue published: {post.issueYear.issueDetails.IssueStartYear}-
-            {post.issueYear.issueDetails.IssueEndYear} (Month :{" "}
-            {post.issueYear.issueDetails.IssueStartMonth}-
-            {post.issueYear.issueDetails.IssueEndMonth}) <br /> Supervisor:{" "}
-            {post.supervisor}
+            Issue published: {post?.issueYear?.issueDetails.IssueStartYear}-
+            {post?.issueYear?.issueDetails.IssueEndYear} (Month :{" "}
+            {post?.issueYear?.issueDetails.IssueStartMonth}-
+            {post?.issueYear?.issueDetails.IssueEndMonth}) <br /> Supervisor:{" "}
+            {post?.supervisor}
           </p>
           <p className="articleHead">Corresponding Author :</p>
           <p className="authorInfo">
@@ -148,7 +146,7 @@ function ViewArticle({ user }) {
           </p>
           <hr />
           <p className="articleHead">Abstract :</p>
-          <p className="abstract">{post.abstract}</p>
+          <p className="abstract">{post?.abstract}</p>
         </div>
       </div>
     </div>

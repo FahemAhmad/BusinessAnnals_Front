@@ -146,8 +146,14 @@ const getTotalUsers = () => httpService.get(`${chief}/count/user`);
 const getEditorCount = () => httpService.get(`${chief}/count/edit`);
 
 //get journal count
-
 const getJournlCount = () => httpService.get(`${chief}/count/journal`);
+
+//delete User
+const deleteUser = (id) => httpService.delete(`${chief}/users/${id}`);
+
+//change account status
+const accountStatus = (body) =>
+  httpService.put(`${chief}/accountStatus/${body.id}?status=${body.status}`);
 /**
  *
  *
@@ -202,6 +208,10 @@ const getNotification_editor = (id, postsPerPage, indexOfLastPost) =>
 //channge status
 const changeStatus_editor = (id, value) =>
   httpService.put(`${editor}/set/${id}`, value);
+
+//get Editor Friends
+const getEditorFriends = (id) => httpService.get(`${editor}/friend/${id}`);
+
 /**
  *
  *
@@ -262,6 +272,9 @@ const getContent_publisher = (id, postsPerPage, indexOfLastPost) =>
     `${publisher}/journals/${id}?limit=${postsPerPage}&start=${indexOfLastPost}`
   );
 
+//const get Friend
+const getFriend_publisher = (id) =>
+  httpService.get(`${publisher}/friend/${id}`);
 /**
  *
  *
@@ -476,4 +489,8 @@ export default {
   getJournlCount,
   newConversationEndpoint,
   updateConvoCounterEndpoint,
+  deleteUser,
+  accountStatus,
+  getEditorFriends,
+  getFriend_publisher,
 };

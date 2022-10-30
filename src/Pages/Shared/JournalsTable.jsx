@@ -5,19 +5,32 @@ import { DataGrid } from "@mui/x-data-grid";
 import Title from "./Title";
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
+import { useRef } from "react";
 
-const JournalsTable = ({ title, icon, rows, columns }) => {
+const JournalsTable = ({ title, icon, rows, columns, name = false }) => {
   const [field, setField] = useState();
+  const ref = React.createRef();
   const [displayRows, setDisplayRows] = useState(rows);
 
   const handleChange = (event) => {
     setField(event.target.value);
+
     if (event.target.value?.length > 3) {
-      setDisplayRows(() =>
-        rows.filter((row) =>
-          row?.title?.toLowerCase().includes(field.toLowerCase())
-        )
-      );
+      if (!name) {
+        setDisplayRows(() =>
+          rows.filter((row) =>
+            row?.title?.toLowerCase().includes(field.toLowerCase())
+          )
+        );
+      } else {
+        setDisplayRows(() =>
+          rows.filter((row) =>
+            `${row?.firstName} ${row?.lastName}`
+              .toLowerCase()
+              .includes(field.toLowerCase())
+          )
+        );
+      }
     } else if (rows?.length !== displayRows?.length) {
       setDisplayRows(rows);
     }

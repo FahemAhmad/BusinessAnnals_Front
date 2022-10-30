@@ -4,11 +4,12 @@ import Logo_Small from "../../Assets/logo_small.png";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Logout from "../Logout";
 import { removeCookie, removeLocalStorage } from "../../Auth/auth";
 
 const Sidebar = ({ navOptions, type }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [open, setOpen] = useState(true);
 
@@ -33,7 +34,12 @@ const Sidebar = ({ navOptions, type }) => {
               <img
                 src={open === false ? Logo_Small : Logo}
                 alt=""
-                style={open ? { height: 100 } : { height: 80 }}
+                style={
+                  open
+                    ? { height: 100, cursor: "pointer" }
+                    : { height: 80, cursor: "pointer" }
+                }
+                onClick={() => navigate("/")}
               />
             </span>
           </div>

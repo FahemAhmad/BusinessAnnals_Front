@@ -51,8 +51,9 @@ const FindFriends = ({
   };
 
   const getFriends = async () => {
-    await backendCall()
+    await backendCall(id)
       .then((res) => {
+        console.log("res", res);
         //get ids of all the users with convo's
         let array = conversations.map(({ members }) =>
           members[0] === id ? members[1] : members[0]
@@ -60,7 +61,7 @@ const FindFriends = ({
 
         //remove allready added convo
         setAllFriend(() =>
-          res?.data.filter((friend) => !array.includes(friend._id))
+          res?.data.filter((friend) => !array.includes(friend.id))
         );
       })
       .catch((err) => {
@@ -70,7 +71,7 @@ const FindFriends = ({
 
   //set All friends
   useEffect(() => {
-    if (conversations.length !== 0) getFriends();
+    getFriends();
   }, [conversations]);
 
   return (

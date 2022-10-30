@@ -38,8 +38,7 @@ function App() {
       const jwt = getCookie("token");
       const extra = getLocalStorage("user");
       const user = jwtDecode(jwt);
-      console.log("User", user);
-      console.log("extra", extra);
+
       setState({ user });
     } catch (error) {}
   }, []);
@@ -86,7 +85,7 @@ function App() {
             element={<RequireChiefEditor user={state} />}
           />
           <Route
-            path="/user/publisher/:id"
+            path="/user/publisher/:id/*"
             element={<RequireUser user={state} />}
           />
           <Route

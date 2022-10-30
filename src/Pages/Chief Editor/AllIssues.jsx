@@ -36,7 +36,7 @@ const AllIssues = () => {
       width: 200,
       renderCell: (params) => (
         <>
-          {params?.row?.supervisor.firstName} {params?.row?.supervisor.lastName}
+          {params?.row?.applied?.firstName} {params?.row?.applied?.lastName}
         </>
       ),
     },

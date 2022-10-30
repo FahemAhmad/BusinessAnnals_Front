@@ -1,22 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate, Route, Routes as Switch, useParams } from "react-router-dom";
 
+// Icons
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import DescriptionIcon from "@mui/icons-material/Description";
 import ArticleIcon from "@mui/icons-material/Article";
-import PublishIcon from "@mui/icons-material/Publish";
+
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MessageIcon from "@mui/icons-material/Message";
+
+// Components
 import Sidebar from "../Shared/Sidebar";
+import UpdateChiefEditor from "../Chief Editor/UpdateChiefEditor";
 import Messenger from "../Chief Editor/Messenger";
 
 import { io } from "socket.io-client";
-import EditorDashboard from "./EditorDashboard";
-import ReviewedJournals from "./ReviewedJournals";
+import NotFound from "../NotFound";
 import apiCalls from "../../backend/apiCalls";
-import NewJournals from "./NewJournals";
-import UpdateChiefEditor from "../Chief Editor/UpdateChiefEditor";
+import EditorDashboard from "../Editor/EditorDashboard";
+import YourJournals from "./YourJournals";
+import BookmarkJournals from "./BookmarkJournals";
 
-const editorSideBar = [
+const chiefSidebar = [
   {
     name: "Analytics & Stats",
     title: "Dashboard",
@@ -25,14 +30,14 @@ const editorSideBar = [
   },
   {
     name: "Journals",
-    title: "Reviewed Journals",
-    link: "/reviewed_journals",
+    title: "Your Journals",
+    link: "/your_journals",
     icon: <ArticleIcon className="icon" />,
   },
   {
-    title: "New Journals",
-    link: "/new_journals",
-    icon: <PublishIcon className="icon" />,
+    title: "Saved Journals",
+    link: "/saved_journals",
+    icon: <DescriptionIcon className="icon" />,
   },
 
   {
@@ -48,15 +53,15 @@ const editorSideBar = [
   },
 ];
 
-const Editor = () => {
+const Publisher = () => {
   const { id } = useParams();
   const socket = useRef();
   const [arrivedMessage, setArrivedMessage] = useState(null);
+  const [messageCounter, setMessageCounter] = useState([]);
 
   useEffect(() => {
     socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
-      console.log("data", data);
       setArrivedMessage({
         sender: data.senderId,
         text: data.text,
@@ -67,13 +72,15 @@ const Editor = () => {
 
   useEffect(() => {
     socket?.current.emit("addUser", id);
-    socket?.current.on("getUsers", (users) => {});
+    socket?.current.on("getUsers", (users) => {
+      console.log(users);
+    });
   }, [id]);
 
   return (
     <>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Sidebar navOptions={editorSideBar} type={"editor"} />
+        <Sidebar navOptions={chiefSidebar} type={"publisher"} />
         <div
           style={{ display: "flex", flexDirection: "column", width: "100%" }}
         >
@@ -82,15 +89,16 @@ const Editor = () => {
               path="/"
               exact
               element={
-                <EditorDashboard endpointCall={apiCalls.getDetails_editor} />
+                <EditorDashboard endpointCall={apiCalls.getPublisherDetails} />
               }
             />
-            <Route path="/reviewed_journals" element={<ReviewedJournals />} />
-            <Route path="/new_journals" element={<NewJournals />} />
+            <Route path="/your_journals" element={<YourJournals />} />
+            <Route path="/saved_journals" element={<BookmarkJournals />} />
+
             <Route
               path="/update_profile"
               element={
-                <UpdateChiefEditor endpoint={apiCalls.getDetails_editor} />
+                <UpdateChiefEditor endpoint={apiCalls.getPublisherDetails} />
               }
             />
             <Route
@@ -99,10 +107,13 @@ const Editor = () => {
                 <Messenger
                   socket={socket}
                   arrivedMessage={arrivedMessage}
-                  friendsCall={apiCalls.getEditorFriends}
+                  setMessageCounter={setMessageCounter}
+                  messageCounter={messageCounter}
+                  friendsCall={apiCalls.getFriend_publisher}
                 />
               }
             />
+            <Route path="/not-found" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/not-found" />} />
           </Switch>
         </div>
@@ -111,4 +122,4 @@ const Editor = () => {
   );
 };
 
-export default Editor;
+export default Publisher;

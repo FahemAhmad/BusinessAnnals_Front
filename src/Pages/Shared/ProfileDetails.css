@@ -1,6 +1,6 @@
 .codepen,
 .profile {
-  margin: 2em auto;
+  margin: 2rem auto;
 }
 .codepen h1,
 .profile h1 {
@@ -19,8 +19,8 @@
   width: 100%;
   border: 1px solid #e1e1e1;
   border-radius: 20px;
-  padding: 2em;
-  margin: 1em;
+  padding: 2rem;
+  margin: 1rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -70,10 +70,7 @@
   padding-right: 10px;
   font-weight: bold;
 }
-.profile main dl dt:after {
-  /* content: &#34;
-  :&#34 ; */
-}
+
 .profile main dl dd {
   width: 70%;
 }
@@ -112,8 +109,8 @@ label {
 }
 @media screen and (max-width: 520px) {
   .profile {
-    padding: 1em;
-    margin: 1em;
+    padding: 1rem;
+    margin: 1rem;
   }
   .profile img {
     max-width: 100%;

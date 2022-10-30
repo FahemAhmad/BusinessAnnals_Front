@@ -12,7 +12,7 @@ const AddEditor = () => {
         name={"Create Editor"}
         icon={<AddCircleIcon fontSize="large" style={{ marginBottom: 7 }} />}
       />
-      <div className="container">
+      <div className="add-container">
         <SignupForm api={apiCalls.createReviewer} />
       </div>
     </>

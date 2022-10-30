@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { getLocalStorage } from "../../Auth/auth";
-import apiCalls from "../../backend/apiCalls";
+
 import UpdateProfile from "../Shared/UpdateProfile";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import { useParams } from "react-router-dom";
 
-const UpdateChiefEditor = () => {
+const UpdateChiefEditor = ({ endpoint }) => {
   const [details, setDetails] = useState();
+  let { id } = useParams();
 
   const getChiefDetails = async () => {
-    const userDetails = getLocalStorage("user");
-
-    await apiCalls.getUserDetailsById(userDetails?.userId).then((data) => {
+    await endpoint(id).then((data) => {
       setDetails(data?.data);
     });
   };

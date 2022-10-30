@@ -15,6 +15,7 @@ const Messenger = ({
   arrivedMessage,
   messageCounter,
   setMessageCounter,
+  friendsCall,
 }) => {
   const { id } = useParams();
   const [currentChat, setCurrentChat] = useState(null);
@@ -76,6 +77,7 @@ const Messenger = ({
       conversationId: currentChat.id,
     };
 
+    setNewMessage("");
     const recieverId = currentChat.members.find((member) => member !== id);
 
     socket?.current.emit("sendMessage", {
@@ -88,7 +90,6 @@ const Messenger = ({
 
       currentChat.readMessageId = id;
       setMessages([...messages, res.data]);
-      setNewMessage("");
     } catch (err) {
       console.log(err);
     }
@@ -99,7 +100,6 @@ const Messenger = ({
     await apiCalls
       .getConversations(id)
       .then((data) => {
-        console.log("thisis data", data);
         setConversations(data.data);
 
         // for every conversation there is a counter
@@ -216,7 +216,7 @@ const Messenger = ({
       <FindFriends
         show={newConvo}
         onHide={() => setNewConvo(false)}
-        backendCall={apiCalls.getChiefFriends}
+        backendCall={friendsCall}
         createConvoCall={apiCalls.newConversationEndpoint}
         id={id}
         updateConvo={() => setUpdateConvo(!updateConvo)}

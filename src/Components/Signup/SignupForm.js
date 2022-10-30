@@ -37,7 +37,7 @@ function SignupForm({ api }) {
       onSubmit={async (values, { resetForm }) => {
         const res = await api(values)
           .then((data) => {
-            ToastSuccess.ToastSuccess(data?.data);
+            ToastSuccess.ToastSuccess("Verification Email send");
             resetForm();
           })
           .catch((err) => ToastSuccess.ToastFailure(err.response.data));

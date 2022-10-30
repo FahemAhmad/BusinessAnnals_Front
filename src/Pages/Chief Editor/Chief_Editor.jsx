@@ -124,7 +124,12 @@ const Chief_Editor = () => {
             <Route path="/view_editors" element={<ViewEditors />} />
             <Route path="/add_editors" element={<AddEditor />} />
             <Route path="/view_users" element={<ViewUsers />} />
-            <Route path="/update_profile" element={<UpdateChiefEditor />} />
+            <Route
+              path="/update_profile"
+              element={
+                <UpdateChiefEditor endpoint={apiCalls.getUserDetailsById} />
+              }
+            />
             <Route path="/not-found" element={<NotFound />} />
             <Route
               path="/messages"
@@ -134,6 +139,7 @@ const Chief_Editor = () => {
                   arrivedMessage={arrivedMessage}
                   setMessageCounter={setMessageCounter}
                   messageCounter={messageCounter}
+                  friendsCall={apiCalls.getChiefFriends}
                 />
               }
             />
