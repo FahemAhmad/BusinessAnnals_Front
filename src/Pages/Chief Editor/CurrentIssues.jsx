@@ -86,7 +86,10 @@ const CurrentIssues = () => {
       width: 250,
       renderCell: (params) => (
         <>
-          <DownloadIcon style={{ margin: "0 1rem", color: "#02627a" }} />
+          <DownloadIcon
+            style={{ margin: "0 1rem", color: "#02627a" }}
+            onClick={() => downloadPaper(params?.row)}
+          />
           <DeleteIcon
             style={{ margin: "0 1rem", color: "red" }}
             onClick={() => handleDeleteEvent(params?.row)}
@@ -127,6 +130,12 @@ const CurrentIssues = () => {
         setCurrentIssues([...currentIsues, row]);
         ToastSuccess.ToastFailure(err.response.data);
       });
+  };
+
+  const downloadPaper = async (row) => {
+    // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+    var win = window.open(row?.file.url, "_blank");
+    win.focus();
   };
 
   //get All issues

@@ -82,6 +82,14 @@ function SubmissionForm({ id }) {
             file: values.file,
           });
         }
+
+        resetForm({
+          title: "",
+          authors: "",
+          field: "",
+          abstract: "",
+          file: undefined,
+        });
       }}
     >
       {(formik) => (

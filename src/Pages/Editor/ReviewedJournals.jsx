@@ -73,7 +73,10 @@ const ReviewedJournals = () => {
       width: 200,
       renderCell: (params) => (
         <>
-          <DownloadIcon style={{ margin: "0 1rem", color: "#02627a" }} />
+          <DownloadIcon
+            style={{ margin: "0 1rem", color: "#02627a" }}
+            onClick={() => downloadPaper(params?.row)}
+          />
         </>
       ),
     },
@@ -85,6 +88,12 @@ const ReviewedJournals = () => {
     await apiCalls
       .getReviwedContent_editor(id)
       .then((data) => setAllIssues(data?.data));
+  };
+
+  const downloadPaper = async (row) => {
+    // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+    var win = window.open(row?.file.url, "_blank");
+    win.focus();
   };
 
   //get All issues

@@ -28,7 +28,7 @@ function UpdateProfile({ profile, title, icon }) {
         job: profile.job,
       }}
       onSubmit={async (values, { resetForm }) => {
-        const res = await apiCalls
+        await apiCalls
           .updateInformation_chief({ id: profile._id, ...values })
           .then((data) => {
             ToastSuccess.ToastSuccess(data?.data);

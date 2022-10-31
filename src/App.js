@@ -29,11 +29,19 @@ import ScrollToTop from "./Utility/ScrollToTop";
 import AuthActivate from "./Pages/AuthActivate";
 import { getCookie, getLocalStorage } from "./Auth/auth";
 import ResetPassword from "./Pages/ResetPassword";
+import apiCalls from "./backend/apiCalls";
 
 function App() {
   const [state, setState] = useState(undefined);
+  const [volume, setVolume] = useState(0);
 
+  const getCurrentVolume = async () => {
+    await apiCalls
+      .getCurrentVolume()
+      .then((res) => setVolume(res?.data.volume));
+  };
   useEffect(() => {
+    getCurrentVolume();
     try {
       const jwt = getCookie("token");
       const extra = getLocalStorage("user");
@@ -65,7 +73,10 @@ function App() {
           <Route path="/login" element={<Login submit={false} />} />
           <Route path="/editorilBoard" element={<EditorialBoard />} />
           <Route path="/allIssues" element={<AllIssues />} />
-          <Route path="/currentIssues/:volume" element={<CurrentIssues />} />
+          <Route
+            path="/currentIssues/:volume"
+            element={<CurrentIssues v={volume} />}
+          />
           <Route path="/aboutJournal" element={<AboutJournal />} />
           <Route path="/submitpaper" element={<RequireAuth user={state} />} />
           <Route

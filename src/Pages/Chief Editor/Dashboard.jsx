@@ -14,18 +14,21 @@ const Dashboard = ({ endpointCall }) => {
   const getTotalUsers = async () => {
     await apiCalls
       .getTotalUsers()
-      .then((res) => setTotalUsers(res?.data?.count));
+      .then((res) => setTotalUsers(res?.data?.count))
+      .catch((err) => setTotalUsers(0));
   };
 
   const getEditorCount = async () => {
     await apiCalls
       .getEditorCount()
-      .then((res) => setEditorCount(res.data.count));
+      .then((res) => setEditorCount(res.data.count))
+      .catch((err) => setEditorCount(0));
   };
   const getJournalCount = async () => {
     await apiCalls
       .getJournlCount()
-      .then((res) => setJournalCount(res.data.count));
+      .then((res) => setJournalCount(res.data.count))
+      .catch((err) => setJournalCount(0));
   };
   useEffect(() => {
     getTotalUsers();

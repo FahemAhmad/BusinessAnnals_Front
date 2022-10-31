@@ -143,7 +143,7 @@ const LaunchIssue = ({ open, handleChange }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {months.map((m, index) => (
+                  {months?.map((m, index) => (
                     <MenuItem key={index} value={m}>
                       {m}
                     </MenuItem>
@@ -170,7 +170,7 @@ const LaunchIssue = ({ open, handleChange }) => {
                     <em>None</em>
                   </MenuItem>
                   {years?.map((y, index) => (
-                    <MenuItem key={y} value={y}>
+                    <MenuItem key={index} value={y}>
                       {y}
                     </MenuItem>
                   ))}
@@ -203,8 +203,10 @@ const LaunchIssue = ({ open, handleChange }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {months.map((m) => (
-                    <MenuItem value={m}>{m}</MenuItem>
+                  {months?.map((m, index) => (
+                    <MenuItem key={index} value={m}>
+                      {m}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -227,8 +229,10 @@ const LaunchIssue = ({ open, handleChange }) => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {years?.map((y) => (
-                    <MenuItem value={y}>{y}</MenuItem>
+                  {years?.map((y, index) => (
+                    <MenuItem key={index} value={y}>
+                      {y}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>

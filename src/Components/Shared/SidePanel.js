@@ -9,11 +9,7 @@ function SidePanel() {
   const [last, setLast] = useState(0);
 
   const getLastIssue = async () => {
-    const res = await apiCalls.getLastIssue();
-
-    if (res.status === 200) {
-      setLast(res.data.Volume);
-    }
+    await apiCalls.getLastIssue().then((res) => setLast(res?.data?.Volume));
   };
 
   useEffect(() => {

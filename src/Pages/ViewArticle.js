@@ -58,6 +58,12 @@ function ViewArticle({ user }) {
     }
   }, [user]);
 
+  const downloadPaper = async (row) => {
+    // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+    var win = window.open(row?.url, "_blank");
+    win.focus();
+  };
+
   return (
     <div>
       <Cover />
@@ -79,7 +85,7 @@ function ViewArticle({ user }) {
             }}
           >
             <p
-              onClick={async () => await apiCalls.downloadJournal(post?.file)}
+              onClick={() => downloadPaper(post?.file)}
               style={{
                 color: "blue",
                 fontSize: 20,

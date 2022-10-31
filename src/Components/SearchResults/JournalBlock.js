@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import apiCalls from "../../backend/apiCalls";
 import { dateFormat } from "../../Utility/dateFormat";
 
 const downloadFile = async (fileName) => {
-  await apiCalls.downloadJournal(fileName);
+  // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+  var win = window.open(fileName.url, "_blank");
+  win.focus();
 };
 
 function JournalBlock({ posts, loading }) {
@@ -39,11 +40,7 @@ function JournalBlock({ posts, loading }) {
               {post.title}
             </span>
           </Link>
-          <p style={{ fontWeight: "900", display: "inline" }}>
-            {post.author.map((singleAuthor, i) =>
-              i !== 0 ? `, ${singleAuthor}` : singleAuthor
-            )}
-          </p>
+          <p style={{ fontWeight: "900", display: "inline" }}>{post.author}</p>
           <p style={{ marginTop: -10 }}>
             First Published : {dateFormat(post.publicationYear)}
           </p>

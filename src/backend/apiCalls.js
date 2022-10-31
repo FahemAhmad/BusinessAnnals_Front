@@ -53,6 +53,9 @@ const resetPassword = (values) => httpService.post(`${users}/reset`, values);
 //get Bookmarks
 const getBookmarks_User = (id) => httpService.get(`${users}/bookmark/${id}`);
 
+// current volume
+const getCurrentVolume = () => httpService.get(`${users}/volume`);
+
 /**
  *
  *
@@ -305,7 +308,9 @@ const getFriend_publisher = (id) =>
 
 const getCurrentIssues = (id, postsPerPage, indexOfLastPost) =>
   httpService.get(
-    `${journals}/currentIssues/${id}?limit=${postsPerPage}&start=${indexOfLastPost}`
+    `${journals}/currentIssues/${
+      id == undefined ? "0" : id
+    }?limit=${postsPerPage}&start=${indexOfLastPost}`
   );
 
 const bestThreeJournals = () => httpService.get(`${journals}/latest`);
@@ -317,34 +322,6 @@ const searchJournals = ({ query, cancelToken }) =>
 //upload journals
 const uploadJournals = (values, config) =>
   httpService.post(journals, values, config);
-
-//download journals
-const downloadJournal = (fileName) =>
-  fetch(`http://localhost:5000/journal/download`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ fileName: fileName }),
-  })
-    .then((response) => response.blob())
-    .then((blob) => {
-      console.log(blob);
-      // Create blob link to download
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", `Journal.pdf`);
-
-      // Append to html link element page
-      document.body.appendChild(link);
-
-      // Start download
-      link.click();
-
-      // Clean up and remove the link
-      link.parentNode.removeChild(link);
-    });
 
 /**
  *
@@ -442,7 +419,6 @@ export default {
   searchJournals,
   bestThreeJournals,
   uploadJournals,
-  downloadJournal,
   getAllJournals,
   newJournalSubmission,
   getEditors,
@@ -493,4 +469,5 @@ export default {
   accountStatus,
   getEditorFriends,
   getFriend_publisher,
+  getCurrentVolume,
 };

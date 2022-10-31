@@ -5,12 +5,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import Title from "./Title";
 import { TextField } from "@mui/material";
 import { useEffect } from "react";
-import { useRef } from "react";
 
 const JournalsTable = ({ title, icon, rows, columns, name = false }) => {
   const [field, setField] = useState();
-  const ref = React.createRef();
-  const [displayRows, setDisplayRows] = useState(rows);
+
+  const [displayRows, setDisplayRows] = useState([]);
 
   const handleChange = (event) => {
     setField(event.target.value);
@@ -37,7 +36,7 @@ const JournalsTable = ({ title, icon, rows, columns, name = false }) => {
   };
 
   useEffect(() => {
-    setDisplayRows(rows);
+    if (rows) setDisplayRows(rows);
     setField("");
   }, [rows]);
 
@@ -59,6 +58,7 @@ const JournalsTable = ({ title, icon, rows, columns, name = false }) => {
           pageSize={8}
           rowsPerPageOptions={[8]}
           disableSelectionOnClick
+          experimentalFeatures={{ lazyLoading: true }}
         />
       </Box>
     </>

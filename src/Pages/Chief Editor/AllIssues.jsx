@@ -50,7 +50,10 @@ const AllIssues = () => {
       width: 200,
       renderCell: (params) => (
         <>
-          <DownloadIcon style={{ margin: "0 1rem", color: "#02627a" }} />
+          <DownloadIcon
+            style={{ margin: "0 1rem", color: "#02627a" }}
+            onClick={() => downloadPaper(params?.row)}
+          />
           <DeleteIcon
             style={{ margin: "0 1rem", color: "red" }}
             onClick={() => handleDeleteEvent(params?.row)}
@@ -60,10 +63,23 @@ const AllIssues = () => {
     },
   ];
 
-  const [allIssues, setAllIssues] = useState();
+  const [allIssues, setAllIssues] = useState([]);
+  const [toogle, setToogle] = useState(false);
 
   const getAllIssues = async () => {
-    await apiCalls.getJournals().then((data) => setAllIssues(data?.data));
+    await apiCalls
+      .getJournals()
+      .then((data) => setAllIssues(data?.data))
+      .catch((err) => {
+        console.log("All issues");
+      });
+    setToogle(true);
+  };
+
+  const downloadPaper = async (row) => {
+    // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+    var win = window.open(row?.file.url, "_blank");
+    win.focus();
   };
 
   const handleDeleteEvent = async (row) => {
@@ -85,7 +101,7 @@ const AllIssues = () => {
 
   return (
     <>
-      {allIssues && (
+      {toogle && (
         <JournalsTable
           title={"All Issues"}
           rows={allIssues}

@@ -7,14 +7,14 @@ import PaginationItem from "../Components/Shared/PaginationItem";
 import "./SearchResults.css";
 import { useParams } from "react-router-dom";
 
-function CurrentIssues() {
+function CurrentIssues({ v = null }) {
   const [trigger, setTrigger] = useState(false);
   const [posts, setposts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [calculate, setCalculate] = useState(0);
 
-  const { volume } = useParams();
+  let { volume } = useParams();
 
   const postsPerPage = 5;
 
@@ -34,8 +34,9 @@ function CurrentIssues() {
     setLoading(true);
 
     const indexOfLastPost = (cp - 1) * postsPerPage;
+    console.log("result", volume);
     const res = await apiCalls.getCurrentIssues(
-      volume,
+      volume ? volume : 0,
       postsPerPage,
       indexOfLastPost
     );
@@ -60,7 +61,7 @@ function CurrentIssues() {
         style={{ display: "flex", flexDirection: "column", margin: "2% 10%" }}
       >
         <h3>
-          Volume : {volume} <h4>Total Issues : {calculate}</h4>
+          Volume : {volume} <p>Total Issues : {calculate}</p>
         </h3>
         <div>
           <p>

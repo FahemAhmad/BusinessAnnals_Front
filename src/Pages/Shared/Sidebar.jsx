@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import React, { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import Logout from "../Logout";
+
 import { removeCookie, removeLocalStorage } from "../../Auth/auth";
 
 const Sidebar = ({ navOptions, type }) => {

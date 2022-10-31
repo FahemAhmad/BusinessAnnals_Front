@@ -51,7 +51,10 @@ const New_Submissions = () => {
       width: 250,
       renderCell: (params) => (
         <>
-          <DownloadIcon style={{ margin: "0 1rem", color: "#02627a" }} />
+          <DownloadIcon
+            style={{ margin: "0 1rem", color: "#02627a" }}
+            onClick={() => downloadPaper(params?.row)}
+          />
           <DeleteIcon
             style={{ margin: "0 1rem", color: "red" }}
             onClick={() => handleDeleteEvent(params?.row)}
@@ -73,6 +76,12 @@ const New_Submissions = () => {
   ];
 
   const [newIssues, setNewIssues] = useState();
+
+  const downloadPaper = async (row) => {
+    // await apiCalls.downloadJournal(row?.file).then((res) => console.log(res));
+    var win = window.open(row?.file.url, "_blank");
+    win.focus();
+  };
 
   const getNewSubmissions = async () => {
     await apiCalls
