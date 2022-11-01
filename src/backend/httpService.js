@@ -3,7 +3,8 @@ import { getCookie } from "../Auth/auth";
 
 const authToken = getCookie("token");
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL =
+  "http://ec2-46-137-193-76.ap-southeast-1.compute.amazonaws.com:5000";
 axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
 
 axios.interceptors.response.use(null, (error) => {
